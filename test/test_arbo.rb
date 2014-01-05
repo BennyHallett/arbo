@@ -11,8 +11,9 @@ class ArboTests < Test::Unit::TestCase
 
   def test_call_command_handler
     args = Array.new
-    @mock_handler.expects(:execute).with(args)
-    @arbo.go :mock, args
+    pw = 'Secret'
+    @mock_handler.expects(:execute).with(args, pw)
+    @arbo.go :mock, args, pw
   end
 
 end

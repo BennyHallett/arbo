@@ -10,8 +10,11 @@ arbo = Arbo.new handlers
 cmd = ARGV[0]
 args = ARGV[1..-1]
 
+puts "\nPlease enter your password: "
+password = $stdin.gets
+
 begin
-  arbo.go cmd, args
+  arbo.go cmd, args, password
 rescue Exception => e
   puts e
 end

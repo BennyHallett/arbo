@@ -4,8 +4,8 @@ class Arbo
     @handlers = handlers
   end
 
-  def go(command, args)
-    @handlers[command].execute(args)
+  def go(command, args, password)
+    @handlers[command].execute(args, password)
   end
 
 end
