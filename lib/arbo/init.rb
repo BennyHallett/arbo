@@ -1,12 +1,18 @@
 require 'crypt/blowfish'
+require 'fileutils'
 
 class InitCommand
 
-  def initialize(options)
+  def initialize
     @db = File.expand_path(File.join(Dir.home, '.arbodb'))
   end
 
-  def execute(password)
+  def execute(args)
+    if args == nil or args.size == 0
+      raise 'Password must be supplied'
+    end
+    password = args[0]
+    
     if password.nil? or password.length == 0
       raise 'Password must be supplied'
     elsif File.file?(@db)

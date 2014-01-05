@@ -1,3 +1,17 @@
 #!/usr/bin/env ruby
+require 'arbo'
+require 'arbo/init'
 
-puts 'Hi there'
+handlers = {
+  'init' => InitCommand.new
+}
+
+arbo = Arbo.new handlers
+cmd = ARGV[0]
+args = ARGV[1..-1]
+
+begin
+  arbo.go cmd, args
+rescue Exception => e
+  puts e
+end

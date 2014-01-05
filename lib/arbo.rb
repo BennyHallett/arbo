@@ -1,5 +1,11 @@
 class Arbo
-  def self.hi
-    puts "Hello!"
+
+  def initialize(handlers)
+    @handlers = handlers
   end
+
+  def go(command, args)
+    @handlers[command].execute(args)
+  end
+
 end
