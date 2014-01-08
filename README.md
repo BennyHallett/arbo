@@ -9,7 +9,7 @@ Proposed Usage
 
 * `arbo` - Displays help
 * `arbo help` - Displays help
-* `arbo init $password` - Creates empty ~/.arbodb file, and encryts it
+* `arbo init` - Creates empty ~/.arbodb file, and encryts it
 * `arbo list` - Lists known password (keys only, not values DUH!)
 * `arbo set $key` - Sets password (Prompts for password)
 * `arbo generate $key` - Generates a new password and assigns it to the key

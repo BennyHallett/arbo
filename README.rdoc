@@ -1,0 +1,6 @@
+= arbo
+
+Describe your project here
+
+:include:arbo.rdoc
+

@@ -1,11 +1,4 @@
-class Arbo
+require 'arbo/version.rb'
 
-  def initialize(handlers)
-    @handlers = handlers
-  end
-
-  def go(command, args, password)
-    @handlers[command].execute(args, password)
-  end
-
-end
+# Add requires for other files you add to your project here, so
+# you just need to require this one file in your bin file
