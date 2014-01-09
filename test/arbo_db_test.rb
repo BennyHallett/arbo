@@ -38,7 +38,7 @@ class ArboDbTest < Test::Unit::TestCase
   end
 
   def test_db_file_is_created_on_init
-    File.expects(:open).with(@file, 'w+')
+    File.expects(:open).with(@file, 'w')
     @crypto.expects(:encrypt)
     @db.init @crypto
   end
@@ -52,5 +52,49 @@ class ArboDbTest < Test::Unit::TestCase
     assert_raise RuntimeError do
       @db.set @key, @pw, @crypto
     end
+  end
+
+  def test_set_decrypts_and_encrypts
+    when_i_have_an_empty_db_file
+  
+    i_expect_the_file_to_be_decrypted_then_encrypted_again
+    @db.set @key, @pw, @crypto
+  end
+
+  def test_sets_writes_to_file
+    when_i_have_an_empty_db_file
+    initial_size = File.size @file
+   
+    i_expect_the_file_to_be_decrypted_then_encrypted_again
+    i_expect_the_file_to_be_opened_for_reading_and_writing
+
+    @db.set @key, @pw, @crypto 
+    
+    assert(initial_size != File.size(@file), "Current file size #{File.size(@file)} should not match original size : #{initial_size}") 
+  end
+  
+  def test_list_empty_db_returns_no_keys
+    when_i_have_an_empty_db_file
+    i_expect_the_file_to_be_decrypted_then_encrypted_again
+    i_expect_the_file_to_be_opened_for_reading_and_writing
+    @db.set @key, @pw, @crypto
+
+    keys = @db.list @crypto
+    assert_equal 0, keys.length
+  end
+
+  def i_expect_the_file_to_be_opened_for_reading_and_writing
+    File.expects(:open).with(@file, 'r')
+    File.expects(:open).with(@file, 'w')
+  end
+
+  def when_i_have_an_empty_db_file
+    @crypto.expects(:encrypt)
+    @db.init @crypto
+  end
+
+  def i_expect_the_file_to_be_decrypted_then_encrypted_again
+    @crypto.expects(:encrypt)
+    @crypto.expects(:decrypt)
   end
 end
