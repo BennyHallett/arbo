@@ -10,7 +10,7 @@ class ArboDbTest < Test::Unit::TestCase
     @db = ArboDb.new @file
     @key = 'My Email Account'
     @pw = 'EmailPassword'
-    @master_pw = 'SuperSecretMasterPassword'
+    @crypto = mock('object')
   end
 
   def teardown
@@ -24,25 +24,33 @@ class ArboDbTest < Test::Unit::TestCase
   end
 
   def test_create_db
-    @db.init @master_pw
+    @crypto.expects(:encrypt)
+    @db.init @crypto 
     assert @db.exist?
   end
 
   def test_not_create_db_if_already_created
-    @db.init @master_pw
+    @crypto.expects(:encrypt)
+    @db.init @crypto
     assert_raises RuntimeError do
-      @db.init @master_pw
+      @db.init @crypto
     end
   end
 
   def test_db_file_is_created_on_init
     File.expects(:open).with(@file, 'w+')
-    @db.init @master_pw
+    @crypto.expects(:encrypt)
+    @db.init @crypto
+  end
+
+  def test_db_file_is_encrpyted_on_init
+    @crypto.expects(:encrypt)
+    @db.init @crypto
   end
 
   def test_cannot_set_on_non_existant_db
     assert_raise RuntimeError do
-      @db.set @key, @pw, @master_pw
+      @db.set @key, @pw, @crypto
     end
   end
 end
