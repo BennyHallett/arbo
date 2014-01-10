@@ -72,15 +72,32 @@ class ArboDbTest < Test::Unit::TestCase
     
     assert(initial_size != File.size(@file), "Current file size #{File.size(@file)} should not match original size : #{initial_size}") 
   end
+
+  def test_list_uninitialized_db_throws_error
+    assert_raise RuntimeError do
+      @db.list @crypto
+    end
+  end
   
   def test_list_empty_db_returns_no_keys
+    when_i_have_an_empty_db_file
+
+    @crypto.expects(:decrypt)
+    keys = @db.list @crypto
+    assert_equal 0, keys.length
+  end
+
+  def test_list_db_with_one_entry_returns_one_key
     when_i_have_an_empty_db_file
     i_expect_the_file_to_be_decrypted_then_encrypted_again
     i_expect_the_file_to_be_opened_for_reading_and_writing
     @db.set @key, @pw, @crypto
 
+    File.expects(:open).with(@file, 'r')
+    @crypto.expects(:decrypt)
     keys = @db.list @crypto
-    assert_equal 0, keys.length
+    assert_equal 1, keys.length
+    assert_equal @key, keys.first
   end
 
   def i_expect_the_file_to_be_opened_for_reading_and_writing

@@ -25,7 +25,12 @@ class ArboDb
   end
   
   def list(crypto)
-    return Array.new
+    raise "Unable to list keys when no database exists" unless exist?
+    db = Hash.new
+    File.open(@file, 'r') { |f| db = Marshal.load(f); }
+    crypto.decrypt
+    db.keys
+    
   end
 
 end
