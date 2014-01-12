@@ -1,3 +1,5 @@
+require 'json'
+
 class ArboDb
 
   def initialize(file = File.join(Dir.home, '.arbodb'))
@@ -10,27 +12,26 @@ class ArboDb
 
   def init(crypto)
     raise "Database already created at #{@file}." unless !exist?
-    crypto.encrypt
-    File.open(@file, 'w') { |f| Marshal.dump(Hash.new, f) }
+    db = Hash.new.to_json
+    contents = crypto.encrypt db
+    File.open(@file, 'w') { |f| f.write(contents) }
   end
 
   def set(key, password, crypto)
     raise "Unable to set password for #{key} when no database exists" unless exist?
-    db = Hash.new
-    File.open(@file, 'r') { |f| db = Marshal.load(f); }
-    crypto.decrypt
+    encrypted_contents = File.read(@file)
+    contents = crypto.decrypt encrypted_contents
+    db = JSON.parse(contents)
     db[key] = password
-    crypto.encrypt
-    File.open(@file, 'w') { |f| Marshal.dump(db, f) }
+    File.open(@file, 'w') { |f| f.write(crypto.encrypt(db.to_json)) }
   end
   
   def list(crypto)
     raise "Unable to list keys when no database exists" unless exist?
-    db = Hash.new
-    File.open(@file, 'r') { |f| db = Marshal.load(f); }
-    crypto.decrypt
+    encrypted_contents = File.read(@file)
+    contents = crypto.decrypt encrypted_contents
+    db = JSON.parse(contents)
     db.keys
-    
   end
 
 end

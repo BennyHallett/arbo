@@ -2,6 +2,7 @@ require 'test_helper'
 require 'arbo/arbo_db'
 require 'mocha/setup'
 require 'fileutils'
+require 'json'
 
 class ArboDbTest < Test::Unit::TestCase
 
@@ -56,8 +57,9 @@ class ArboDbTest < Test::Unit::TestCase
 
   def test_set_decrypts_and_encrypts
     when_i_have_an_empty_db_file
-  
-    i_expect_the_file_to_be_decrypted_then_encrypted_again
+ 
+    @crypto.expects(:encrypt).returns('abcdef')
+    @crypto.expects(:decrypt).returns({ @key => @pw }.to_json)
     @db.set @key, @pw, @crypto
   end
 
@@ -65,12 +67,10 @@ class ArboDbTest < Test::Unit::TestCase
     when_i_have_an_empty_db_file
     initial_size = File.size @file
    
-    i_expect_the_file_to_be_decrypted_then_encrypted_again
     i_expect_the_file_to_be_opened_for_reading_and_writing
+    @crypto.expects(:decrypt).returns(Hash.new.to_json)
 
     @db.set @key, @pw, @crypto 
-    
-    assert(initial_size != File.size(@file), "Current file size #{File.size(@file)} should not match original size : #{initial_size}") 
   end
 
   def test_list_uninitialized_db_throws_error
@@ -82,36 +82,31 @@ class ArboDbTest < Test::Unit::TestCase
   def test_list_empty_db_returns_no_keys
     when_i_have_an_empty_db_file
 
-    @crypto.expects(:decrypt)
+    @crypto.expects(:decrypt).returns(Hash.new.to_json)
     keys = @db.list @crypto
     assert_equal 0, keys.length
   end
 
   def test_list_db_with_one_entry_returns_one_key
     when_i_have_an_empty_db_file
-    i_expect_the_file_to_be_decrypted_then_encrypted_again
+    @crypto.expects(:decrypt).returns(Hash.new.to_json)
     i_expect_the_file_to_be_opened_for_reading_and_writing
     @db.set @key, @pw, @crypto
 
-    File.expects(:open).with(@file, 'r')
-    @crypto.expects(:decrypt)
+    File.expects(:read).with(@file)
+    @crypto.expects(:decrypt).returns({ @key => @pw}.to_json)
     keys = @db.list @crypto
     assert_equal 1, keys.length
     assert_equal @key, keys.first
   end
 
   def i_expect_the_file_to_be_opened_for_reading_and_writing
-    File.expects(:open).with(@file, 'r')
+    File.expects(:read).with(@file)
     File.expects(:open).with(@file, 'w')
   end
 
   def when_i_have_an_empty_db_file
     @crypto.expects(:encrypt)
     @db.init @crypto
-  end
-
-  def i_expect_the_file_to_be_decrypted_then_encrypted_again
-    @crypto.expects(:encrypt)
-    @crypto.expects(:decrypt)
   end
 end
