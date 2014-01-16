@@ -34,4 +34,12 @@ class ArboDb
     db.keys
   end
 
+  def delete(key, crypto)
+    encrypted_contents = File.read @file
+    contents = crypto.decrypt encrypted_contents
+    db = JSON.parse(contents)
+    db.delete key
+    File.open(@file, 'w') { |f| f.write(crypto.encrypt(db.to_json)) }
+  end
+
 end

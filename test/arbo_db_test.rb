@@ -100,6 +100,14 @@ class ArboDbTest < Test::Unit::TestCase
     assert_equal @key, keys.first
   end
 
+  def test_delete_from_db_with_one_key
+    when_i_have_an_empty_db_file
+    @crypto.expects(:decrypt).returns({ @key => @pw}.to_json)
+    @crypto.expects(:encrypt)
+    
+    @db.delete @key, @crypto
+  end
+
   def i_expect_the_file_to_be_opened_for_reading_and_writing
     File.expects(:read).with(@file)
     File.expects(:open).with(@file, 'w')
