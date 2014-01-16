@@ -5,5 +5,7 @@ require 'test/unit'
 class Test::Unit::TestCase
 
   # Add global extensions to the test case class here
+
+  @@help_text = 'Arbo - the command line password manager.'
   
 end

@@ -11,34 +11,22 @@ end
 
 include GLI::App
 
-program_desc 'Describe your application here'
+program_desc 'Arbo - the command line password manager.'
 
 version Arbo::VERSION
 
-desc 'Describe some switch here'
-switch [:s,:switch]
+#desc 'Describe some switch here'
+#switch [:s,:switch]
 
-desc 'Describe some flag here'
-default_value 'the default'
-arg_name 'The name of the argument'
-flag [:f,:flagname]
+desc 'The file in which to store the encrypted password db'
+default_value "#{Dir.home}/.arbodb"
+arg_name 'File'
+flag [:f,:file]
 
-desc 'Describe help here'
-arg_name 'Describe arguments to help here'
+desc 'Displays help'
+arg_name 'command'
 command :help do |c|
-  c.desc 'Describe a switch to help'
-  c.switch :s
-
-  c.desc 'Describe a flag to help'
-  c.default_value 'default'
-  c.flag :f
   c.action do |global_options,options,args|
-
-    # Your command logic here
-     
-    # If you have any errors, just raise them
-    # raise "that command made no sense"
-
     puts "help command ran"
   end
 end
