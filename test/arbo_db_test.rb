@@ -108,6 +108,12 @@ class ArboDbTest < Test::Unit::TestCase
     @db.delete @key, @crypto
   end
 
+  def test_delete_with_no_db
+    assert_raise RuntimeError do
+      @db.delete @key, @crypto
+    end
+  end
+
   def i_expect_the_file_to_be_opened_for_reading_and_writing
     File.expects(:read).with(@file)
     File.expects(:open).with(@file, 'w')

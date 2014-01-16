@@ -35,6 +35,7 @@ class ArboDb
   end
 
   def delete(key, crypto)
+    raise "Unable to delete key #{key} when no database exists" unless exist?
     encrypted_contents = File.read @file
     contents = crypto.decrypt encrypted_contents
     db = JSON.parse(contents)
