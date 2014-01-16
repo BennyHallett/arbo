@@ -114,6 +114,15 @@ class ArboDbTest < Test::Unit::TestCase
     end
   end
 
+  def test_delete_non_existant_key
+    when_i_have_an_empty_db_file
+    @crypto.expects(:decrypt).returns(Hash.new.to_json)
+    @crypto.expects(:encrypt)
+    $stdout.expects(:puts).with("Cannot delete key #{@key} when it doesn't exist")
+
+    @db.delete @key, @crypto
+  end
+
   def i_expect_the_file_to_be_opened_for_reading_and_writing
     File.expects(:read).with(@file)
     File.expects(:open).with(@file, 'w')

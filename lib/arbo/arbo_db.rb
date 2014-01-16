@@ -39,7 +39,11 @@ class ArboDb
     encrypted_contents = File.read @file
     contents = crypto.decrypt encrypted_contents
     db = JSON.parse(contents)
-    db.delete key
+    if db.keys.include? key
+      db.delete key
+    else
+      puts "Cannot delete key #{key} when it doesn't exist"
+    end
     File.open(@file, 'w') { |f| f.write(crypto.encrypt(db.to_json)) }
   end
 
