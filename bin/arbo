@@ -28,6 +28,7 @@ arg_name 'command'
 command :help do |c|
   c.action do |global_options,options,args|
     puts "help command ran"
+    puts global_options
   end
 end
 
