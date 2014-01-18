@@ -15,9 +15,3 @@ Proposed Usage
 * `arbo generate $key` - Generates a new password and assigns it to the key
 * `arbo delete $key` - Deletes the password from the database
 * `arbo get $key` - Copies the password to the clipboard
-
-Other required features
-=======================
-
-* Config file to set defaults such as password length
-* Database probably needs a header to confirm if decrypted properly

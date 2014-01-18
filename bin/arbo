@@ -2,6 +2,7 @@
 require 'gli'
 require 'arbo'
 require 'arbo/init'
+require 'arbo/set'
 require 'arbo/crypto'
 
 include GLI::App
@@ -11,7 +12,8 @@ program_desc 'Arbo - the command line password manager.'
 version Arbo::VERSION
 
 commands = {
-  :init => InitCommand.new
+  :init   => InitCommand.new,
+  :set    => SetCommand.new
 }
 
 #desc 'Describe some switch here'
@@ -51,7 +53,7 @@ desc 'Describe set here'
 arg_name 'Describe arguments to set here'
 command :set do |c|
   c.action do |global_options,options,args|
-    puts "set command ran"
+    commands[:set].process global_options, options, args, @crypto
   end
 end
 
@@ -81,7 +83,7 @@ end
 
 pre do |global,command,options,args|
   puts 'Please enter your master password: '
-  pw = gets
+  pw = $stdin.gets
   @crypto = Crypto.new pw
   true
 end
