@@ -11,7 +11,7 @@ class SetCommand
     pw = $stdin.gets
   
     db  = ArboDb.new global_options[:file]
-    db.set args.first, pw, crypto
+    db.set key, pw, crypto
   end
   
 end
