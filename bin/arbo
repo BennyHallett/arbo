@@ -7,6 +7,8 @@ require 'arbo/list'
 require 'arbo/delete'
 require 'arbo/crypto'
 
+require 'io/console'
+
 include GLI::App
 
 program_desc 'Arbo - the command line password manager.'
@@ -95,7 +97,7 @@ end
 
 pre do |global,command,options,args|
   puts 'Please enter your master password: '
-  pw = $stdin.gets
+  pw = $stdin.noecho(&:gets)
   @crypto = Crypto.new pw
   true
 end

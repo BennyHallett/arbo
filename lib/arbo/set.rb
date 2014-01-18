@@ -1,4 +1,5 @@
 require 'arbo/arbo_db'
+require 'io/console'
 
 class SetCommand
 
@@ -8,7 +9,7 @@ class SetCommand
 
     key = args.first
     puts "Please enter the password for #{key}."
-    pw = $stdin.gets
+    pw = $stdin.noecho(&:gets)
   
     db  = ArboDb.new global_options[:file]
     db.set key, pw, crypto
