@@ -5,6 +5,7 @@ require 'arbo/init'
 require 'arbo/set'
 require 'arbo/list'
 require 'arbo/delete'
+require 'arbo/help'
 require 'arbo/crypto'
 
 require 'io/console'
@@ -19,7 +20,8 @@ commands = {
   :init   => InitCommand.new,
   :set    => SetCommand.new,
   :list   => ListCommand.new,
-  :delete => DeleteCommand.new
+  :delete => DeleteCommand.new,
+  :help   => HelpCommand.new
 }
 
 #desc 'Describe some switch here'
@@ -35,7 +37,7 @@ arg_name 'command'
 skips_pre
 command :help do |c|
   c.action do |global_options,options,args|
-    puts "help command ran"
+    puts commands[:help].process global_options, options, args
   end
 end
 
