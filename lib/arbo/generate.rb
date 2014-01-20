@@ -7,10 +7,10 @@ class GenerateCommand
     raise 'Cannot process set command without generator' unless generator
     raise "Generate command requires one key argument. You have provided #{args.length}." unless args.length == 1
 
-    #key = args.first
+    key = args.first
   
-    #db  = ArboDb.new global_options[:file]
-    #db.set key, pw, crypto
+    db  = ArboDb.new global_options[:file]
+    db.generate key, crypto, generator
   end
   
 end

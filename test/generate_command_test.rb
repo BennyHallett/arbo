@@ -39,4 +39,12 @@ class GenerateCommandTest < Test::Unit::TestCase
       @generate.process Hash.new, Hash.new, Array.new, @crypto, @generator
     end
   end
+  
+  def test_generate_command_completes
+    @crypto.expects(:decrypt).returns(Hash.new.to_json)
+    @crypto.expects(:encrypt)
+    @generator.expects(:generate).returns('abc123def456ghi789j0')
+    
+    @generate.process @globals, Hash.new, [@key], @crypto, @generator
+  end
 end
