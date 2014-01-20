@@ -123,6 +123,12 @@ class ArboDbTest < Test::Unit::TestCase
     @db.delete @key, @crypto
   end
 
+  def test_generate_with_uninitialized_db_throws_error
+    assert_raises RuntimeError do
+      @db.generate @key, @crypto
+    end
+  end
+
   def i_expect_the_file_to_be_opened_for_reading_and_writing
     File.expects(:read).with(@file)
     File.expects(:open).with(@file, 'w')

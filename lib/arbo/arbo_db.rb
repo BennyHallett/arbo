@@ -47,4 +47,8 @@ class ArboDb
     File.open(@file, 'w') { |f| f.write(crypto.encrypt(db.to_json)) }
   end
 
+  def generate(key, crypto)
+    raise "Unable to generate password for #{key} when no database exists" unless exist?
+  end
+
 end
