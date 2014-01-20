@@ -33,4 +33,10 @@ class GenerateCommandTest < Test::Unit::TestCase
       @generate.process Hash.new, Hash.new, Array.new, @crypto, nil
     end
   end
+
+  def test_cannot_generate_when_no_key_is_given
+    assert_raise RuntimeError do
+      @generate.process Hash.new, Hash.new, Array.new, @crypto, @generator
+    end
+  end
 end
