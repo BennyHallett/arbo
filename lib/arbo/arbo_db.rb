@@ -50,6 +50,12 @@ class ArboDb
   def generate(key, crypto, generator)
     raise "Unable to generate password for #{key} when no database exists" unless exist?
     raise "Unable to generate password for #{key} with no generator" unless generator
+
+    encrypted_contents = File.read @file
+    contents = crypto.decrypt encrypted_contents
+    db = JSON.parse(contents)
+    db[key] = generator.generate
+    File.open(@file, 'w')  { |f| f.write(crypto.encrypt(db.to_json)) }
   end
 
 end
