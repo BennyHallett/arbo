@@ -51,4 +51,16 @@ Or to specify the location of the ArboDB manually, use either one of
   arbo --file /home/me/work.arbodb
   arbo -f /home/me/personal.arbodb
 '
+
+  @@list_text = 'Arbo - the command line password manager.
+
+THE `LIST` COMMAND
+
+The list command is used to list all known keys in the ArboDB file.
+
+EXAMPLES:
+
+  arbo list
+'
+  
 end

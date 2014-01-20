@@ -5,6 +5,8 @@ class HelpCommand
 
     if command == 'init'
       return @init
+    elsif command == 'list'
+      return @list
     end
 
     return @help
@@ -55,6 +57,17 @@ Or to specify the location of the ArboDB manually, use either one of
 
   arbo --file /home/me/work.arbodb
   arbo -f /home/me/personal.arbodb
+'
+
+  @list = 'Arbo - the command line password manager.
+
+THE `LIST` COMMAND
+
+The list command is used to list all known keys in the ArboDB file.
+
+EXAMPLES:
+
+  arbo list
 '
   end
   
