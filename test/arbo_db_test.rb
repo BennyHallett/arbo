@@ -125,7 +125,14 @@ class ArboDbTest < Test::Unit::TestCase
 
   def test_generate_with_uninitialized_db_throws_error
     assert_raises RuntimeError do
-      @db.generate @key, @crypto
+      @db.generate @key, @crypto, mock('object')
+    end
+  end
+
+  def test_generate_with_no_generator_throws_error
+    when_i_have_an_empty_db_file
+    assert_raises RuntimeError do
+      @db.generate @key, @crypto, nil
     end
   end
 
