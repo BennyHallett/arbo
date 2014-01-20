@@ -2,11 +2,8 @@ require 'securerandom'
 
 class Generator
 
-  def initialize(length=24)
-    @length = length
-  end
-
-  def generate
-    SecureRandom.base64 @length
+  def generate(length=32)
+    n = length / 4 * 3
+    SecureRandom.base64 n
   end
 end
