@@ -64,9 +64,9 @@ class ArboDb
     contents = crypto.decrypt encrypted_contents
     db = JSON.parse contents
     if db.keys.include? key
+      Clipboard.copy db[key]
     else
       raise "Unknown key: #{key}."
     end
   end
-
 end
