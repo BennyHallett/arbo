@@ -6,6 +6,7 @@ require 'arbo/set'
 require 'arbo/list'
 require 'arbo/delete'
 require 'arbo/generate'
+require 'arbo/get'
 require 'arbo/help'
 require 'arbo/crypto'
 require 'arbo/generator'
@@ -24,6 +25,7 @@ commands = {
   :list     => ListCommand.new,
   :delete   => DeleteCommand.new,
   :generate => GenerateCommand.new,
+  :get      => GetCommand.new,
   :help     => HelpCommand.new
 }
 
@@ -97,7 +99,7 @@ desc 'Describe get here'
 arg_name 'Describe arguments to get here'
 command :get do |c|
   c.action do |global_options,options,args|
-    puts "get command ran"
+    commands[:get].process global_options, options, args, @crypto
   end
 end
 

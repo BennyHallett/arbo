@@ -1,4 +1,5 @@
 require 'json'
+require 'clipboard'
 
 class ArboDb
 
