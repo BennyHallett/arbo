@@ -27,6 +27,12 @@ class GetCommandTest < Test::Unit::TestCase
     end
   end
 
+  def test_attempt_to_get_without_key_fails
+    assert_raise RuntimeError do
+      @get.process Hash.new, Hash.new, Array.new, @crypto
+    end
+  end
+
   def test_get_blog_password_copies_secret_to_clipboard
     @crypto.expects(:decrypt).returns(@passwords.to_json)
     Clipboard.expects(:copy).with('secret')
