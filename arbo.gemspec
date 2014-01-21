@@ -12,6 +12,16 @@ spec = Gem::Specification.new do |s|
   s.files = %w(
 bin/arbo
 lib/arbo/version.rb
+lib/arbo/arbo_db.rb
+lib/arbo/crypto.rb
+lib/arbo/delete.rb
+lib/arbo/generate.rb
+lib/arbo/generator.rb
+lib/arbo/get.rb
+lib/arbo/help.rb
+lib/arbo/init.rb
+lib/arbo/list.rb
+lib/arbo/set.rb
 lib/arbo.rb
   )
   s.require_paths << 'lib'
