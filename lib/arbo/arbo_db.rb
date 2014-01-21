@@ -60,6 +60,13 @@ class ArboDb
 
   def get(key, crypto)
     raise "Unable to get password for #{key} when no database exists" unless exist?
+    encrypted_contents = File.read @file
+    contents = crypto.decrypt encrypted_contents
+    db = JSON.parse contents
+    if db.keys.include? key
+    else
+      raise "Unknown key: #{key}."
+    end
   end
 
 end
