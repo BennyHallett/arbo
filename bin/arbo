@@ -105,7 +105,7 @@ end
 
 pre do |global,command,options,args|
   puts 'Please enter your master password: '
-  pw = $stdin.noecho(&:gets)
+  pw = $stdin.noecho(&:gets).chomp
   @crypto = Crypto.new pw
   true
 end
