@@ -9,7 +9,7 @@ class SetCommand
 
     key = args.first
     puts "Please enter the password for #{key}."
-    pw = $stdin.noecho(&:gets)
+    pw = $stdin.noecho(&:gets).chomp
   
     db  = ArboDb.new global_options[:file]
     db.set key, pw, crypto

@@ -39,11 +39,11 @@ class SetCommandTest < Test::Unit::TestCase
     end
   end
 
-  def test_set_command_asks_for_password_and_adds_it_to_the_db
+  def test_set_command_asks_for_password_and_adds_it_to_the_db_and_ensures_chomped
     $stdout.expects(:puts).with("Please enter the password for #{@key}.")
-    $stdin.expects(:gets).returns('secret')
+    $stdin.expects(:gets).returns("secret\n")
     @crypto.expects(:decrypt).returns(Hash.new.to_json)
-    @crypto.expects(:encrypt)
+    @crypto.expects(:encrypt).with({ @key => 'secret' }.to_json)
     @set.process @globals, Hash.new, [@key], @crypto
   end
 end
