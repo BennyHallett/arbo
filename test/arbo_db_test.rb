@@ -3,6 +3,7 @@ require 'arbo/arbo_db'
 require 'mocha/setup'
 require 'fileutils'
 require 'json'
+require 'clipboard'
 
 class ArboDbTest < Test::Unit::TestCase
 
@@ -145,7 +146,12 @@ class ArboDbTest < Test::Unit::TestCase
     generator.expects(:generate).returns('abcdefghijkl1234567890')
 
     @db.generate @key, @crypto, generator
-    
+  end
+
+  def test_get_with_uninitialized_db_throws_error
+    assert_raises RuntimeError do
+      @db.get @key, @crypto
+    end
   end
 
   def i_expect_the_file_to_be_opened_for_reading_and_writing

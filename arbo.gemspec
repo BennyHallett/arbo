@@ -27,4 +27,5 @@ lib/arbo.rb
   s.add_development_dependency('mocha')
   s.add_runtime_dependency('gli','2.8.1')
   s.add_runtime_dependency('crypt')
+  s.add_runtime_dependency('clipboard')
 end
