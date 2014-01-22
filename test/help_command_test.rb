@@ -26,6 +26,10 @@ class HelpCommandTest < Test::Unit::TestCase
     help_command_for_arg_should_return_value 'set', @@set_text
   end
 
+  def test_get_get_help
+    help_command_for_arg_should_return_value 'get', @@get_text
+  end
+
   def help_command_for_arg_should_return_value(command, value)
     if command
       arg_array = [command]

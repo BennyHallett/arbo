@@ -82,10 +82,26 @@ The following command will create a new entry for the `email` key:
   arbo set email
 '
 
+    @get = 'Arbo - the command line password manager.
+
+THE `GET` COMMAND
+
+The get command can be used to retrieve a stored password from the ArboDB.
+The password is copied to the clipboard, to be pasted into the relevant 
+application afterwards.
+
+EXAMPLES:
+
+The following command will retrieve the password for the `email` key:
+
+  arbo get email
+'
+
     @command_help = {
       :init       => @init,
       :list       => @list,
-      :set        => @set
+      :set        => @set,
+      :get        => @get
     }
   end
   
