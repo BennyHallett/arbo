@@ -107,5 +107,25 @@ The following command will remove the entry for the `email` key:
 
   arbo delete email
 '
- 
+
+  @@generate_text = 'Arbo - the command line password manager.
+
+THE `GENERATE` COMMAND
+
+The generate command can be used to randomly generate a password
+for an entry in the ArboDB. If the entry does not exist a new 
+entry will be created, otherwise the original password will be
+over-writted.
+
+The password generated is 32 characters in length. In future
+versions of Arbo, this length will be configurable.
+
+EXMAPLES:
+
+The following command will generate a new 32 character long
+password for the `email` key:
+
+  arbo generate email
+'
+
 end

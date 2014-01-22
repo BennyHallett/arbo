@@ -34,6 +34,10 @@ class HelpCommandTest < Test::Unit::TestCase
     help_command_for_arg_should_return_value 'delete', @@delete_text
   end
 
+  def test_get_generate_help
+    help_command_for_arg_should_return_value 'generate', @@generate_text
+  end
+
   def help_command_for_arg_should_return_value(command, value)
     if command
       arg_array = [command]
