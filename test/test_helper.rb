@@ -93,5 +93,19 @@ The following command will retrieve the password for the `email` key:
 
   arbo get email
 '
+
+  @@delete_text = 'Arbo - the command line password manager
+
+THE `DELETE` COMMAND
+
+The delete command can be used to remove an entry from the ArboDB. Once
+it has been removed, it cannot be retrieved.
+
+EXMAPLES:
+
+The following command will remove the entry for the `email` key:
+
+  arbo delete email
+'
  
 end
