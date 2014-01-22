@@ -42,7 +42,8 @@ allows users to specify the location of their database.
 
 EXAMPLES:
 
-The following command will initialize a new ArboDB at the default location, ~/.arbodb.
+The following command will initialize a new ArboDB at the default 
+location, ~/.arbodb.
 
   arbo init
 
@@ -61,6 +62,21 @@ The list command is used to list all known keys in the ArboDB file.
 EXAMPLES:
 
   arbo list
+'
+
+  @@set_text = 'Arbo - the command line password manager.
+
+THE `SET` COMMAND
+
+The set command can be used to record a password in the ArboDB file. The 
+user will be prompted for the password which will be saved in the ArboDB
+file, encrypted.
+
+EXAMPLES:
+
+The following command will create a new entry for the `email` key:
+
+  arbo set email
 '
   
 end

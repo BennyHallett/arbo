@@ -7,6 +7,8 @@ class HelpCommand
       return @init
     elsif command == 'list'
       return @list
+    elsif command == 'set'
+      return @set
     end
 
     return @help
@@ -49,7 +51,8 @@ allows users to specify the location of their database.
 
 EXAMPLES:
 
-The following command will initialize a new ArboDB at the default location, ~/.arbodb.
+The following command will initialize a new ArboDB at the default 
+location, ~/.arbodb.
 
   arbo init
 
@@ -59,7 +62,7 @@ Or to specify the location of the ArboDB manually, use either one of
   arbo -f /home/me/personal.arbodb
 '
 
-  @list = 'Arbo - the command line password manager.
+    @list = 'Arbo - the command line password manager.
 
 THE `LIST` COMMAND
 
@@ -68,6 +71,21 @@ The list command is used to list all known keys in the ArboDB file.
 EXAMPLES:
 
   arbo list
+'
+
+    @set = 'Arbo - the command line password manager.
+
+THE `SET` COMMAND
+
+The set command can be used to record a password in the ArboDB file. The 
+user will be prompted for the password which will be saved in the ArboDB
+file, encrypted.
+
+EXAMPLES:
+
+The following command will create a new entry for the `email` key:
+
+  arbo set email
 '
   end
   

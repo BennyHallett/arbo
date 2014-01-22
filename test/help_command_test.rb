@@ -21,4 +21,8 @@ class HelpCommandTest < Test::Unit::TestCase
   def test_get_list_help
     assert_equal @@list_text, @help.process(Hash.new, Array.new, ['list'])
   end
+
+  def test_get_set_help
+    assert_equal @@set_text, @help.process(Hash.new, Array.new, ['set'])
+  end
 end
