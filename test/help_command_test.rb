@@ -11,18 +11,29 @@ class HelpCommandTest < Test::Unit::TestCase
   end
 
   def test_get_general_help
-    assert_equal @@help_text, @help.process(Hash.new, Array.new, Array.new)
+    help_command_for_arg_should_return_value nil, @@help_text
   end
 
   def test_get_init_help
-    assert_equal @@init_text, @help.process(Hash.new, Array.new, ['init'])
+    help_command_for_arg_should_return_value 'init', @@init_text
   end
 
   def test_get_list_help
-    assert_equal @@list_text, @help.process(Hash.new, Array.new, ['list'])
+    help_command_for_arg_should_return_value 'list', @@list_text
   end
 
   def test_get_set_help
-    assert_equal @@set_text, @help.process(Hash.new, Array.new, ['set'])
+    help_command_for_arg_should_return_value 'set', @@set_text
   end
+
+  def help_command_for_arg_should_return_value(command, value)
+    if command
+      arg_array = [command]
+    else
+      arg_array = Array.new
+    end
+
+    assert_equal(value, @help.process(Hash.new, Array.new, arg_array))
+  end
+
 end
