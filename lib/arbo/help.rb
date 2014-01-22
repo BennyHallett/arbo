@@ -2,16 +2,10 @@ class HelpCommand
 
   def process(global_options, options, args)
     command = args.first
+    command = command.to_sym unless !command
 
-    if command == 'init'
-      return @init
-    elsif command == 'list'
-      return @list
-    elsif command == 'set'
-      return @set
-    end
-
-    return @help
+    return @command_help[command] unless !@command_help.keys.include? command
+    @help
   end
 
   def initialize
@@ -87,6 +81,12 @@ The following command will create a new entry for the `email` key:
 
   arbo set email
 '
+
+    @command_help = {
+      :init       => @init,
+      :list       => @list,
+      :set        => @set
+    }
   end
   
 end
